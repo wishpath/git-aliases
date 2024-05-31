@@ -38,21 +38,14 @@
         git status; \
     }; f"
 
-    # Alias to merge the remote branch (same name as the current local branch)
-    # into the remote master branch
-    # Steps:
-    # 1. Fetch the latest changes from the remote repository
-    # 2. Get the name of the current local branch
-    # 3. Checkout the remote master branch locally
-    # 4. Merge the remote branch (same name as the current local branch) into the remote master branch locally
-    # 5. Push the changes to the remote master branch
-    omerge = "!f() { \
+    # Merge the remote branch (same name as the current local branch) into the remote master branch
+    omerge = "!f() { \ # o = origin
         branch=$(git rev-parse --abbrev-ref HEAD) && \
         git fetch origin && \
-        if git show-ref --verify --quiet refs/heads/temp-master; then \
+        if git show-ref --verify --quiet refs/heads/temp-master; then \ # if there is a branch called "temp-master"
             git branch -D temp-master; \
         fi && \
-        git checkout -b temp-master origin/master && \
+        git checkout -b temp-master origin/master && \ # local copy of remote master branch
         git merge origin/\"$branch\" && \
         git push origin temp-master:master && \
         git checkout master && \
