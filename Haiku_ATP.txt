@@ -41,6 +41,7 @@
     # o = origin
     # Merge the remote branch (same name as the current local branch) into the remote master branch
     # if there is a branch called "temp-master" --> if git show-ref --verify --quiet refs/heads/temp-master; then \ 
+    # local copy of remote master branch --> checkout -b temp-master origin/master
     omerge = "!f() { \ 
         branch=$(git rev-parse --abbrev-ref HEAD) && \
         git fetch origin && \
